@@ -1,0 +1,86 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="col-md-3"></div>
+<div class="col-md-6" ng-controller="MappingsCtrl as mc" ng-init="mc.getSavedMappings()">
+    <a href="#" class="btn btn-primary" ng-click="mc.createMapping()">Create New Mapping</a>
+    <br>
+    <br>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Location</th>
+                <th>Rule Applied</th>
+                <th>Created By</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="mappingInfo in mc.savedMappings">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ mappingInfo.sort_state_map_state }}</td>
+                <td>{{ mappingInfo.sort_set_name }}</td>
+                <td>{{ mappingInfo.sort_state_map_add_user }}</td>
+                <td>{{ mappingInfo.sort_state_map_update_time }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="modal" style="{{ mc.modalStyle }}">
+    <!--<div class="modal" style="display: block;">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="mc.resetForm()">[x]</button>
+                    <h4 class="modal-title">Create New Mapping</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="radio" style="margin-top: -8px;">
+                        <label style="margin-right: 20px;"><input type="radio" name="lobRadios" value="0" checked>Residential</label>
+                        <label><input type="radio" name="lobRadios" value="1">Commercial</label>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li ng-click="mc.selectMappingTab('sitewide')" ng-class="{'active': mc.sitewideTab}"><a href="#sitewide" data-toggle="tab">SITEWIDE</a></li>
+                        <li ng-click="mc.selectMappingTab('state')" ng-class="{'active': mc.stateTab}"><a href="#state" data-toggle="tab">STATE</a></li>
+                        <li ng-click="mc.selectMappingTab('county')" ng-class="{'active': mc.countyTab}"><a href="#county" data-toggle="tab">COUNTY</a></li>
+                        <li ng-click="mc.selectMappingTab('city')" ng-class="{'active': mc.cityTab}"><a href="#city" data-toggle="tab">CITY</a></li>
+                        <li ng-click="mc.selectMappingTab('ipaddress')" ng-class="{'active': mc.ipaddressTab}"><a href="#ipaddress" data-toggle="tab">IP ADDRESS</a></li>
+                    </ul>
+                    <div id="mappingTabContent" class="tab-content">
+                        <div class="tab-pane fade" ng-class="{'active in': mc.sitewideTab}" id="sitewide">
+                            <br>SITEWIDE</div>
+                        <div class="tab-pane fade" ng-class="{'active in': mc.stateTab}" id="state">
+                            <br>
+                            <p>Select one or multiple states and a rule to be applied on the state(s)</p>
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <select multiple ng-multiple="true" ng-model="mc.selectedStates" ng-options="state.name for state in mc.states" class="form-control" style="width: 200px; height: 200px; display: inline-block;">
+                                    </select>
+                                    <div style="display: inline-block; margin-left: 20px; vertical-align: top">
+                                        <div class="btn-group" ng-class="{'open': mc.selectRuleDropdown}" ng-click="mc.toggleSelectRuleDropdown()">
+                                            <a style="width: 200px;" href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{mc.selectedRule}}&nbsp;&nbsp;&nbsp;<span class="caret"></span></a>
+                                            <ul class="dropdown-menu" style="width: 200px;">
+                                                <li ng-repeat="rule in mc.sortSetRules">
+                                                    <a href="#" ng-click="mc.selectRuleFromDropdown(rule)">{{rule.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <a style="margin-left: 10px; vertical-align: top; width: 120px;" href="#" class="btn btn-primary" ng-class="{'disabled': mc.addStateAndRuleButtonDisabled}" ng-click="mc.addNewMapping()">ADD</a>
+                                </fieldset>
+                            </form>
+
+
+
+                        </div>
+                        <div class="tab-pane fade" ng-class="{'active in': mc.countyTab}" id="county">
+                            <br>COUNTY</div>
+                        <div class="tab-pane fade" ng-class="{'active in': mc.cityTab}" id="city">
+                            <br>CITY</div>
+                        <div class="tab-pane fade" ng-class="{'active in': mc.ipaddressTab}" id="ipaddress">
+                            <br>IP ADDRESS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-3"></div>

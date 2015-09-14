@@ -1,0 +1,32 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="col-md-2"></div>
+<div class="col-md-7" ng-controller="PreviewCtrl as pc">
+    <div class="form-group">
+        <label class="control-label" for="focusedInput">Auction.com Search</label>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <div class="radio" style="margin-bottom: 0; margin-top: 3px;">
+                    <label style="margin-right: 20px;"><input type="radio" name="lobRadios" value="0" checked>Residential</label>
+                    <label><input type="radio" name="lobRadios" value="1">Commercial</label>
+                </div>
+            </span>
+            <input class="form-control" id="focusedInput" type="text" placeholder="Search by State, County, City, Zip, Address, or Property ID" ng-model="pc.searchedText" style="height: 41px;">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" style="height: 41px;" ng-click="pc.performSearch()">Search</button>
+            </span>
+        </div>
+    </div>
+
+    <div ng-repeat="listing in pc.listings" style="display: inline-block;">
+        <a href="{{listing.pdp_url}}">
+            <div class="well" style="width: 300px; height: 400px; display: inline-block; margin-right: 10px;">
+                <span ng-bind-html="listing.sorted_data | unsafe"></span><br><br>
+                <img src="{{listing.picture_url}}" height="200" width="260"><br><br>
+                <div style="color: #666; font-weight: bold; text-overflow: ellipsis; width: 250px; white-space: nowrap;overflow: hidden;">{{ listing.street }}</div>
+                <div style="color: #666;">{{listing.city_state}}</div>
+                <div style="color: #666;">{{listing.zip}}</div>
+
+            </div>
+        </a>
+    </div>
+</div>
