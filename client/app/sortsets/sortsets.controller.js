@@ -196,7 +196,6 @@ angular.module('mstarApp')
             {id: '11', field:"STARTING BID"},
             {id: '12', field:"DAYS TO AUCTION"}
         ];
-
     })
     .controller('SellerCodeCtrl', function (EventDispatchingSvc, $scope) {
         var scc = this;
@@ -342,9 +341,7 @@ angular.module('mstarApp')
         };
 
         atc.assetTypeOptions = {
-            resi : ["2-Flat","4-Plex","Apartment","Co-Op (Fee Simple)","Commercial","Condo",
-                "Duplex","Land Only","Manufactured Home","Misc","Misc. Residential","Mobile Home","Modular Home",
-                "Multi-family","PUD","Row House","SFR","SFR-Attached","Townhouse","Triplex","Twin Home", "Unknown"],
+            resi : ["Bank Owned", "Foreclosure/Trustee", "Income Producing", "Private Seller - Institutional", "Short Sale"],
             cre: ["Agricultural", "CO-OP (Fee Simple)", "Flex", "Healthcare", "Hotel", "Industrial", "Industrial/Condo",
                 "Industrial/Office", "Land Only", "Lodging", "Medical Office", "Mixed-Use", "Mobile Home Park",
                 "Motel", "Multi-Family", "Office", "Office/Condo", "Parking Garage", "R&D Industrial", "Residential",
@@ -419,18 +416,18 @@ angular.module('mstarApp')
             _(rnc.rangeTypes).forEach(function (elem) {
                 if (elem.id == "1") {
                     // BETWEEN --> {"range_type":"0","value":"1","value_two":"5", "sort_type":"1"},
-                    sort_macro.push({'range_type': '0', 'value': rnc.between_r1, 'value_two': rnc.between_r2, 'sort_type': rnc.sortMap[rnc.betn_orderby]});
+                    sort_macro.push({'range_type': '1', 'value': rnc.between_r1, 'value_two': rnc.between_r2, 'sort_type': rnc.sortMap[rnc.betn_orderby]});
                 } else if (elem.id == "2") {
                     // LESS THAN --> {"range_type":"1","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '1', 'value': rnc.lessthan_r1, 'value_two': "", 'sort_type': rnc.sortMap[rnc.lessthan_orderby]});
+                    sort_macro.push({'range_type': '2', 'value': rnc.lessthan_r1, 'value_two': "", 'sort_type': rnc.sortMap[rnc.lessthan_orderby]});
                 } else if (elem.id == "3") {
                     // GREATER THAN --> {"range_type":"2","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '2', 'value': rnc.greaterthan_r1, 'value_two': "", 'sort_type': rnc.sortMap[rnc.greaterthan_orderby]});
+                    sort_macro.push({'range_type': '3', 'value': rnc.greaterthan_r1, 'value_two': "", 'sort_type': rnc.sortMap[rnc.greaterthan_orderby]});
                 }
             });
             rnc.dispatch('responserunnumberdata', sort_macro);
         });
-        rnc.sortMap = {'ASC': '0', 'DSC': '1', 'RND': '2'};
+        rnc.sortMap = {'ASC': '1', 'DSC': '2', 'RND': '3'};
 
         rnc.sortableOptions = {
             update: function(e, ui) {
@@ -457,7 +454,7 @@ angular.module('mstarApp')
                     rnc.selectedRangeType = 'Select Range';
                     rnc.rangeTypeAddDisabled = true;
                     if (elem.id == 1) {
-                        elem.range_type = "0";
+                        elem.range_type = "1";
                         rnc.between_r1 = '';
                         rnc.between_r2 = '';
                     } else if (elem.id == 2) {
@@ -504,18 +501,18 @@ angular.module('mstarApp')
             _(zc.rangeTypes).forEach(function (elem) {
                 if (elem.id == "1") {
                     // BETWEEN --> {"range_type":"0","value":"1","value_two":"5", "sort_type":"1"},
-                    sort_macro.push({'range_type': '0', 'value': zc.between_r1, 'value_two': zc.between_r2, 'sort_type': zc.sortMap[zc.betn_orderby]});
+                    sort_macro.push({'range_type': '1', 'value': zc.between_r1, 'value_two': zc.between_r2, 'sort_type': zc.sortMap[zc.betn_orderby]});
                 } else if (elem.id == "2") {
                     // LESS THAN --> {"range_type":"1","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '1', 'value': zc.lessthan_r1, 'value_two': "", 'sort_type': zc.sortMap[zc.lessthan_orderby]});
+                    sort_macro.push({'range_type': '2', 'value': zc.lessthan_r1, 'value_two': "", 'sort_type': zc.sortMap[zc.lessthan_orderby]});
                 } else if (elem.id == "3") {
                     // GREATER THAN --> {"range_type":"2","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '2', 'value': zc.greaterthan_r1, 'value_two': "", 'sort_type': zc.sortMap[zc.greaterthan_orderby]});
+                    sort_macro.push({'range_type': '3', 'value': zc.greaterthan_r1, 'value_two': "", 'sort_type': zc.sortMap[zc.greaterthan_orderby]});
                 }
             });
             zc.dispatch('responsezoltardata', sort_macro);
         });
-        zc.sortMap = {'ASC': '0', 'DSC': '1', 'RND': '2'};
+        zc.sortMap = {'ASC': '1', 'DSC': '2', 'RND': '3'};
 
         zc.sortableOptions = {
             update: function(e, ui) {
@@ -589,18 +586,18 @@ angular.module('mstarApp')
             _(sbc.rangeTypes).forEach(function (elem) {
                 if (elem.id == "1") {
                     // BETWEEN --> {"range_type":"0","value":"1","value_two":"5", "sort_type":"1"},
-                    sort_macro.push({'range_type': '0', 'value': sbc.between_r1, 'value_two': sbc.between_r2, 'sort_type': sbc.sortMap[sbc.betn_orderby]});
+                    sort_macro.push({'range_type': '1', 'value': sbc.between_r1, 'value_two': sbc.between_r2, 'sort_type': sbc.sortMap[sbc.betn_orderby]});
                 } else if (elem.id == "2") {
                     // LESS THAN --> {"range_type":"1","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '1', 'value': sbc.lessthan_r1, 'value_two': "", 'sort_type': sbc.sortMap[sbc.lessthan_orderby]});
+                    sort_macro.push({'range_type': '2', 'value': sbc.lessthan_r1, 'value_two': "", 'sort_type': sbc.sortMap[sbc.lessthan_orderby]});
                 } else if (elem.id == "3") {
                     // GREATER THAN --> {"range_type":"2","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '2', 'value': sbc.greaterthan_r1, 'value_two': "", 'sort_type': sbc.sortMap[sbc.greaterthan_orderby]});
+                    sort_macro.push({'range_type': '3', 'value': sbc.greaterthan_r1, 'value_two': "", 'sort_type': sbc.sortMap[sbc.greaterthan_orderby]});
                 }
             });
             sbc.dispatch('responsestartbiddata', sort_macro);
         });
-        sbc.sortMap = {'ASC': '0', 'DSC': '1', 'RND': '2'};
+        sbc.sortMap = {'ASC': '1', 'DSC': '2', 'RND': '3'};
 
         sbc.sortableOptions = {
             update: function(e, ui) {
@@ -672,18 +669,18 @@ angular.module('mstarApp')
             _(dtac.rangeTypes).forEach(function (elem) {
                 if (elem.id == "1") {
                     // BETWEEN --> {"range_type":"0","value":"1","value_two":"5", "sort_type":"1"},
-                    sort_macro.push({'range_type': '0', 'value': dtac.between_r1, 'value_two': dtac.between_r2, 'sort_type': dtac.sortMap[dtac.betn_orderby]});
+                    sort_macro.push({'range_type': '1', 'value': dtac.between_r1, 'value_two': dtac.between_r2, 'sort_type': dtac.sortMap[dtac.betn_orderby]});
                 } else if (elem.id == "2") {
                     // LESS THAN --> {"range_type":"1","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '1', 'value': dtac.lessthan_r1, 'value_two': "", 'sort_type': dtac.sortMap[dtac.lessthan_orderby]});
+                    sort_macro.push({'range_type': '2', 'value': dtac.lessthan_r1, 'value_two': "", 'sort_type': dtac.sortMap[dtac.lessthan_orderby]});
                 } else if (elem.id == "3") {
                     // GREATER THAN --> {"range_type":"2","value":"1","value_two":"", "sort_type":"0"}
-                    sort_macro.push({'range_type': '2', 'value': dtac.greaterthan_r1, 'value_two': "", 'sort_type': dtac.sortMap[dtac.greaterthan_orderby]});
+                    sort_macro.push({'range_type': '3', 'value': dtac.greaterthan_r1, 'value_two': "", 'sort_type': dtac.sortMap[dtac.greaterthan_orderby]});
                 }
             });
             dtac.dispatch('responsedtacdata', sort_macro);
         });
-        dtac.sortMap = {'ASC': '0', 'DSC': '1', 'RND': '2'};
+        dtac.sortMap = {'ASC': '1', 'DSC': '2', 'RND': '3'};
 
         dtac.sortableOptions = {
             update: function(e, ui) {
